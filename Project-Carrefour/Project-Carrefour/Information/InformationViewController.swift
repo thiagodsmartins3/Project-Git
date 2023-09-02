@@ -26,6 +26,16 @@ class InformationViewController: UIViewController,
         return loader
     }()
     
+    lazy var imageProgressView: UIProgressView = {
+        let loader = UIProgressView(progressViewStyle: .bar)
+        loader.backgroundColor = .white
+        loader.progress = 0.0
+        loader.progressTintColor = Asset.royal.color
+        loader.transform = loader.transform.scaledBy(x: 1, y: 8)
+        loader.translatesAutoresizingMaskIntoConstraints = false
+        return loader
+    }()
+    
     lazy private var informationScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,6 +55,7 @@ class InformationViewController: UIViewController,
         imageView.layer.cornerRadius = 8
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = Asset.royal.color.cgColor
+        imageView.backgroundColor = .white
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -119,6 +130,7 @@ class InformationViewController: UIViewController,
     private func setupViews() {
         userImageView.addSubview(userLoginNameLabel)
         userImageView.addSubview(userLocationLabel)
+        userImageView.addSubview(imageProgressView)
         
         informationView.addSubview(userImageView)
         
@@ -165,6 +177,11 @@ class InformationViewController: UIViewController,
             userLocationLabel.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: 20),
             userLocationLabel.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: -20),
             userLocationLabel.bottomAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: -10),
+                        
+            imageProgressView.centerXAnchor.constraint(equalTo: userImageView.centerXAnchor),
+            imageProgressView.centerYAnchor.constraint(equalTo: userImageView.centerYAnchor),
+            imageProgressView.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: 10),
+            imageProgressView.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: -10)
         ])
     }
     
@@ -172,6 +189,12 @@ class InformationViewController: UIViewController,
         AF.download(viewModel.userData.avatarURL)
             .downloadProgress {
                 progress in
+                
+                self.imageProgressView.progress = Float(progress.fractionCompleted)
+                
+                if progress.isFinished {
+                    self.imageProgressView.isHidden = true
+                }
             }
             .responseData { response in
                 if let data = response.value {
