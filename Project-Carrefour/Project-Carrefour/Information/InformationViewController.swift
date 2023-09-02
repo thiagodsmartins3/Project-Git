@@ -6,14 +6,25 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol InformationDisplayLogic: AnyObject {
+    func displayUserInformation(viewModel: Information.User.ViewModel)
+    func displayLoading(viewModel: Information.Loading.ViewModel)
+    func displayErrorMessage(viewModel: Information.ErrorMessage.ViewModel)
 }
 
 class InformationViewController: UIViewController,
                                  InformationDisplayLogic {
+    
     var interactor: InformationBusinessLogic?
     var router: (NSObjectProtocol & InformationRoutingLogic & InformationDataPassing)?
+    
+    lazy var loaderActivityView: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.translatesAutoresizingMaskIntoConstraints = false
+        return loader
+    }()
     
     lazy private var informationScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -28,17 +39,18 @@ class InformationViewController: UIViewController,
     }()
     
     lazy private var userImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "person.circle"))
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .blue
         imageView.layer.cornerRadius = 8
+        imageView.layer.borderWidth = 3
+        imageView.layer.borderColor = Asset.royal.color.cgColor
         imageView.clipsToBounds = true
         return imageView
     }()
     
     lazy private var userLoginNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Just Testing"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 30.0)
         label.textAlignment = .center
@@ -48,7 +60,6 @@ class InformationViewController: UIViewController,
     
     lazy private var userLocationLabel: UILabel = {
         let label = UILabel()
-        label.text = "São Francisco"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 10.0)
         label.textAlignment = .center
@@ -57,9 +68,17 @@ class InformationViewController: UIViewController,
 
     }()
     
+    private var endpoint: String!
+    
     init() {
         super.init(nibName: nil, bundle: nil)
         setup()
+    }
+    
+    convenience init(_ endpoint: String) {
+        self.init()
+        
+        self.endpoint = endpoint
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -87,6 +106,14 @@ class InformationViewController: UIViewController,
         
         view.backgroundColor = .white
         setupViews()
+        
+        Task {
+            do {
+                try await self.interactor?.requestUserInformation(request: .init(endpoint: "users/\(endpoint!)"))
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func setupViews() {
@@ -98,11 +125,19 @@ class InformationViewController: UIViewController,
         informationScrollView.addSubview(informationView)
         
         view.addSubview(informationScrollView)
+        view.addSubview(loaderActivityView)
         
         setupConstraints()
     }
     
     private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            loaderActivityView.topAnchor.constraint(equalTo: view.topAnchor),
+            loaderActivityView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loaderActivityView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            loaderActivityView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+        
         NSLayoutConstraint.activate([
             informationScrollView.topAnchor.constraint(equalTo: view.topAnchor),
             informationScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -131,5 +166,38 @@ class InformationViewController: UIViewController,
             userLocationLabel.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: -20),
             userLocationLabel.bottomAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: -10),
         ])
+    }
+    
+    func displayUserInformation(viewModel: Information.User.ViewModel) {
+        AF.download(viewModel.userData.avatarURL)
+            .downloadProgress {
+                progress in
+            }
+            .responseData { response in
+                if let data = response.value {
+                    self.userImageView.image = UIImage(data: data)
+                }
+            }
+        
+        DispatchQueue.main.async {
+            self.userLoginNameLabel.text = viewModel.userData.login
+            self.userLocationLabel.text = viewModel.userData.location
+        }
+    }
+    
+    func displayLoading(viewModel: Information.Loading.ViewModel) {
+        if viewModel.isLoading {
+            DispatchQueue.main.async {
+                self.loaderActivityView.startAnimating()
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.loaderActivityView.stopAnimating()
+            }
+        }
+    }
+    
+    func displayErrorMessage(viewModel: Information.ErrorMessage.ViewModel) {
+        
     }
 }

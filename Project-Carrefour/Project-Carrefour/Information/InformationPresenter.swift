@@ -8,9 +8,23 @@
 import UIKit
 
 protocol InformationPresentationLogic {
-    
+    func presentUserInformation(response: Information.User.Response)
+    func presentLoading(response: Information.Loading.Response)
+    func presentError(response: Information.ErrorMessage.Response)
 }
 
 class InformationPresenter: InformationPresentationLogic {
     weak var viewController: InformationDisplayLogic?
+    
+    func presentUserInformation(response: Information.User.Response) {
+        viewController?.displayUserInformation(viewModel: .init(userData: response.response))
+    }
+    
+    func presentLoading(response: Information.Loading.Response) {
+        viewController?.displayLoading(viewModel: .init(isLoading: response.isLoading))
+    }
+    
+    func presentError(response: Information.ErrorMessage.Response) {
+        viewController?.displayErrorMessage(viewModel: .init(message: response.message))
+    }
 }

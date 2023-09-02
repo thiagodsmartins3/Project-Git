@@ -8,7 +8,7 @@
 import UIKit
 
 protocol InformationBusinessLogic {
-    func requestUserInformation()
+    func requestUserInformation(request: Information.User.Request) async throws
 }
 
 protocol InformationDataStore {
@@ -16,10 +16,20 @@ protocol InformationDataStore {
 }
 
 class InformationInteractor: InformationBusinessLogic, InformationDataStore {
-    func requestUserInformation() {
-        
-    }
-    
     var presenter: InformationPresentationLogic?
     var worker: InformationWorker?
+    
+    func requestUserInformation(request: Information.User.Request) async throws {
+        worker = InformationWorker()
+        
+        presenter?.presentLoading(response: .init(isLoading: true))
+        do {
+            let data = try await worker?.requestUserInformation(request.endpoint)
+            presenter?.presentUserInformation(response: .init(response: data!))
+            presenter?.presentLoading(response: .init(isLoading: false))
+        } catch let error {
+            print(error.localizedDescription)
+            presenter?.presentLoading(response: .init(isLoading: false))
+        }
+    }
 }

@@ -9,7 +9,7 @@ import UIKit
 import SafariServices
 
 @objc protocol HomeRoutingLogic: AnyObject {
-    func navigateToInformation(source: HomeViewController, destination: InformationViewController)
+    func navigateToInformation(_ endpoint: String)
     func navigateToUrl(_ url: String)
 }
 
@@ -24,8 +24,8 @@ class HomeRouter: NSObject,
     var dataStore: HomeDataStore?
     
     // MARK: Navigation
-    func navigateToInformation(source: HomeViewController, destination: InformationViewController) {
-        viewController?.navigationController?.pushViewController(InformationViewController(), animated: true)
+    func navigateToInformation(_ endpoint: String) {
+        viewController?.navigationController?.pushViewController(InformationViewController(endpoint), animated: true)
     }
     
     func navigateToUrl(_ url: String) {

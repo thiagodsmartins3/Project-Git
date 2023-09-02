@@ -209,7 +209,7 @@ extension HomeViewController: UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       router?.navigateToInformation(source: self, destination: InformationViewController())
+        router?.navigateToInformation(usersData![indexPath.row].login)
     }
 }
 

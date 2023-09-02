@@ -8,5 +8,9 @@
 import UIKit
 
 class InformationWorker {
-
+    private let serviceAPI = ServiceAPI()
+    
+    func requestUserInformation(_ endpoint: String) async throws -> UserInformationModel {
+        return try await serviceAPI.fetchData(.endpoint(url: endpoint), dataType: UserInformationModel.self)
+    }
 }
