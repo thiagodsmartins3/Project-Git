@@ -30,8 +30,31 @@ class InformationViewController: UIViewController,
     lazy private var userImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "person.circle"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .blue
+        imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         return imageView
+    }()
+    
+    lazy private var userLoginNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Just Testing"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 30.0)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy private var userLocationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "São Francisco"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 10.0)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+
     }()
     
     init() {
@@ -67,8 +90,10 @@ class InformationViewController: UIViewController,
     }
     
     private func setupViews() {
-        informationView.addSubview(userImageView)
+        userImageView.addSubview(userLoginNameLabel)
+        userImageView.addSubview(userLocationLabel)
         
+        informationView.addSubview(userImageView)
         
         informationScrollView.addSubview(informationView)
         
@@ -95,8 +120,16 @@ class InformationViewController: UIViewController,
         NSLayoutConstraint.activate([
             userImageView.topAnchor.constraint(equalTo: informationView.topAnchor, constant: 20),
             userImageView.centerXAnchor.constraint(equalTo: informationView.centerXAnchor),
-            userImageView.widthAnchor.constraint(equalToConstant: 100),
-            userImageView.heightAnchor.constraint(equalToConstant: 100)
+            userImageView.widthAnchor.constraint(equalTo: informationView.widthAnchor, multiplier: 0.70),
+            userImageView.heightAnchor.constraint(equalTo: informationView.heightAnchor, multiplier: 0.40),
+            
+            userLoginNameLabel.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: 20),
+            userLoginNameLabel.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: -20),
+            userLoginNameLabel.bottomAnchor.constraint(equalTo: userLocationLabel.topAnchor, constant: -10),
+            
+            userLocationLabel.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: 20),
+            userLocationLabel.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: -20),
+            userLocationLabel.bottomAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: -10),
         ])
     }
 }
