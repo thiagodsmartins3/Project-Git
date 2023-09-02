@@ -16,8 +16,7 @@ protocol HomeDisplayLogic: AnyObject {
 }
 
 class HomeViewController: UIViewController,
-                          HomeDisplayLogic,
-                          UISearchBarDelegate {
+                          HomeDisplayLogic {
     
     var interactor: HomeBusinessLogic?
     var router: (NSObjectProtocol & HomeRoutingLogic & HomeDataPassing)?
@@ -52,6 +51,9 @@ class HomeViewController: UIViewController,
             }
         }
     }
+    
+    private var isSearchActive = false
+    private var filteredSearch: UsersModel?
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -149,36 +151,84 @@ extension HomeViewController: UITableViewDelegate,
             return 0
         }
         
-        return data.count
+        if isSearchActive {
+            guard let searchData = filteredSearch else {
+                return 0
+            }
+            
+            return searchData.count
+        } else {
+            return data.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UsersTableViewCell.identifier, for: indexPath) as! UsersTableViewCell
 
-        AF.download(usersData![indexPath.row].avatarURL)
-            .downloadProgress {
-                progress in
-                
-            }
-            .responseData { response in
-                if let data = response.value {
-                    cell.avatarImageView.image = UIImage(data: data)
+        if isSearchActive {
+            AF.download(filteredSearch![indexPath.row].avatarURL)
+                .downloadProgress {
+                    progress in
+                    
                 }
+                .responseData { response in
+                    if let data = response.value {
+                        cell.avatarImageView.image = UIImage(data: data)
+                    }
+                }
+            
+            cell.loginLabel.text = filteredSearch![indexPath.row].login
+            cell.link = filteredSearch![indexPath.row].htmlURL
+            cell.linkData = cell.linkSelected.sink { response in
+                print(response)
+            } receiveValue: { data in
+                self.router?.navigateToUrl(data)
             }
-        
-        cell.loginLabel.text = usersData![indexPath.row].login
-        cell.link = usersData![indexPath.row].htmlURL
-        cell.linkData = cell.linkSelected.sink { response in
-            print(response)
-        } receiveValue: { data in
-            self.router?.navigateToUrl(data)
+        } else {
+            AF.download(usersData![indexPath.row].avatarURL)
+                .downloadProgress {
+                    progress in
+                    
+                }
+                .responseData { response in
+                    if let data = response.value {
+                        cell.avatarImageView.image = UIImage(data: data)
+                    }
+                }
+            
+            cell.loginLabel.text = usersData![indexPath.row].login
+            cell.link = usersData![indexPath.row].htmlURL
+            cell.linkData = cell.linkSelected.sink { response in
+                print(response)
+            } receiveValue: { data in
+                self.router?.navigateToUrl(data)
+            }
         }
-    
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        router?.navigateToInformation(source: self, destination: InformationViewController())
+    }
+}
+
+extension HomeViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let data = usersData else {
+            return
+        }
+        
+        if searchText.isEmpty {
+            isSearchActive = false
+            informationTableView.reloadData()
+        } else {
+            filteredSearch = data.filter {
+                $0.login.lowercased().contains(searchText.lowercased())
+            }
+            
+            isSearchActive = true
+            informationTableView.reloadData()
+        }
     }
 }
