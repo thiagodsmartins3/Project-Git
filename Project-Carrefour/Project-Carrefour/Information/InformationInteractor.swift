@@ -8,7 +8,7 @@
 import UIKit
 
 protocol InformationBusinessLogic {
-    
+    func requestUserInformation()
 }
 
 protocol InformationDataStore {
@@ -16,6 +16,10 @@ protocol InformationDataStore {
 }
 
 class InformationInteractor: InformationBusinessLogic, InformationDataStore {
+    func requestUserInformation() {
+        
+    }
+    
     var presenter: InformationPresentationLogic?
     var worker: InformationWorker?
 }
