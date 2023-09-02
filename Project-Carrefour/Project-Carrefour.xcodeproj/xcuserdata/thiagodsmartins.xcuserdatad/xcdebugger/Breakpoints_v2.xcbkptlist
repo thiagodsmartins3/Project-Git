@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "E306303D-EB39-4C08-B418-588F552B21DA"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "78C31E8D-DFAD-4178-B2CA-04EE2E1CC596"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project-Carrefour/Home/Cell/UsersTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "didTapLink(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "78C31E8D-DFAD-4178-B2CA-04EE2E1CC596 - 23669d9da4dd0842"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project_Carrefour.UsersTableViewCell.didTapLink(__C.UITapGestureRecognizer) -&gt; ()"
+                  moduleName = "Project-Carrefour"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thiagodsmartins/Documents/Project-Carrefour/Project-Carrefour/Home/Cell/UsersTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "460">
+               </Location>
+               <Location
+                  uuid = "78C31E8D-DFAD-4178-B2CA-04EE2E1CC596 - 23669d9da4dd0800"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project_Carrefour.UsersTableViewCell.didTapLink(__C.UITapGestureRecognizer) -&gt; ()"
+                  moduleName = "Project-Carrefour"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thiagodsmartins/Documents/Project-Carrefour/Project-Carrefour/Home/Cell/UsersTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4BCBA2F7-A338-492E-8628-45F1F34F1C00"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project-Carrefour/Home/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "344D3498-1965-4291-99ED-E2ACF1FBFC0F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project-Carrefour/Home/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "344D3498-1965-4291-99ED-E2ACF1FBFC0F - c5ba4a18810d8c92"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 (Swift.String) -&gt; () in Project_Carrefour.HomeViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "Project-Carrefour"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thiagodsmartins/Documents/Project-Carrefour/Project-Carrefour/Home/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "179"
+                  endingLineNumber = "179"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "344D3498-1965-4291-99ED-E2ACF1FBFC0F - c5ba4a18810d8c92"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 (Swift.String) -&gt; () in Project_Carrefour.HomeViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "Project-Carrefour"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/thiagodsmartins/Documents/Project-Carrefour/Project-Carrefour/Home/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "179"
+                  endingLineNumber = "179"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

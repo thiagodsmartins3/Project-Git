@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  Project-Carrefour
+
+  Created by Thiago dos Santos Martins on 01/09/23.
+  
+*/
+
+"searchbar.text.placeholder" = "Procure aqui o que deseja";
