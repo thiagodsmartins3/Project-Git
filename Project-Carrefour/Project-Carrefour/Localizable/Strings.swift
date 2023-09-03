@@ -15,6 +15,12 @@ internal enum L10n {
       /// No users to view
       internal static let message = L10n.tr("Localizable", "error.empty.message", fallback: "No users to view")
     }
+    internal enum Notfound {
+      /// User "%@" not found
+      internal static func message(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "error.notfound.message", String(describing: p1), fallback: "User \"%@\" not found")
+      }
+    }
     internal enum Request {
       /// Ops, there was a problem with the service ;(
       internal static let message = L10n.tr("Localizable", "error.request.message", fallback: "Ops, there was a problem with the service ;(")
