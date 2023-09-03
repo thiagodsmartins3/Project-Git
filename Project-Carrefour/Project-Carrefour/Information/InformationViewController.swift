@@ -85,7 +85,6 @@ class InformationViewController: UIViewController,
 
     }()
     
-    
     lazy private var userInformationView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -135,6 +134,14 @@ class InformationViewController: UIViewController,
         gradient.startPoint = CGPoint(x: 0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
         return gradient
+    }()
+    
+    lazy var swipeGestureRecognizer: UISwipeGestureRecognizer = {
+        let swipeGesture = UISwipeGestureRecognizer(target: self,
+                                                    action: #selector(didSwipeBack(_:)))
+        swipeGesture.direction = .right
+        
+        return swipeGesture
     }()
     
     private var endpoint: String!
@@ -210,6 +217,8 @@ class InformationViewController: UIViewController,
         view.addSubview(informationScrollView)
         view.addSubview(loaderActivityView)
         view.bringSubviewToFront(loaderActivityView)
+        
+        view.addGestureRecognizer(swipeGestureRecognizer)
         
         setupConstraints()
     }
@@ -341,5 +350,9 @@ class InformationViewController: UIViewController,
     
     func displayErrorMessage(viewModel: Information.ErrorMessage.ViewModel) {
         router?.displayError(viewModel.message)
+    }
+    
+    @objc private func didSwipeBack(_ sender: UISwipeGestureRecognizer) {
+        router?.navigateBack()
     }
 }

@@ -10,6 +10,7 @@ import YSnackbar
 
 @objc protocol InformationRoutingLogic {
     func displayError(_ message: String)
+    func navigateBack()
 }
 
 protocol InformationDataPassing {
@@ -30,5 +31,9 @@ class InformationRouter: NSObject, InformationRoutingLogic, InformationDataPassi
                           icon: UIImage(named: "wifi"),
                           duration: 8.0)
         SnackbarManager.add(snack: snack)
+    }
+    
+    func navigateBack() {
+        viewController?.navigationController?.popViewController(animated: true)
     }
 }
