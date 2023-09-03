@@ -12,3 +12,5 @@
 
 "error.request.message" = "Ops, ocorreu um problema com o serviço ;(";
 "error.empty.message" = "Sem usuários para visualizar";
+
+"error.notfound.message" = "Usuário \"%@\" não encontrado";

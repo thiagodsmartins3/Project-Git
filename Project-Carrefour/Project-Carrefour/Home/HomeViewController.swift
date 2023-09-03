@@ -82,6 +82,7 @@ class HomeViewController: UIViewController,
     
     private var isSearchActive = false
     private var filteredSearch: UsersModel?
+    private var userNotFoundText = ""
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -171,6 +172,7 @@ class HomeViewController: UIViewController,
             emptyMessageLabel.centerXAnchor.constraint(equalTo: emptyMessageView.centerXAnchor),
             emptyMessageLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 10),
             emptyMessageLabel.widthAnchor.constraint(equalToConstant: 150),
+            emptyMessageLabel.bottomAnchor.constraint(lessThanOrEqualTo: emptyMessageView.bottomAnchor, constant: -200)
         ])
     }
     
@@ -198,6 +200,10 @@ class HomeViewController: UIViewController,
         
         router?.displayError(L10n.Error.Request.message)
     }
+    
+    private func userNotFoundMessage() {
+        emptyMessageLabel.text = L10n.Error.Notfound.message(userNotFoundText)
+    }
 }
 
 extension HomeViewController: UITableViewDelegate,
@@ -212,8 +218,16 @@ extension HomeViewController: UITableViewDelegate,
                 return 0
             }
             
-            return searchData.count
+            if searchData.count == 0 {
+                self.emptyMessageView.isHidden = false
+                userNotFoundMessage()
+                return 0
+            } else {
+                self.emptyMessageView.isHidden = true
+                return searchData.count
+            }
         } else {
+            self.emptyMessageView.isHidden = true
             return data.count
         }
     }
@@ -271,7 +285,12 @@ extension HomeViewController: UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        router?.navigateToInformation(usersData![indexPath.row].login)
+        if isSearchActive {
+            router?.navigateToInformation(filteredSearch![indexPath.row].login)
+        } else {
+            router?.navigateToInformation(usersData![indexPath.row].login)
+        }
+        
     }
 }
 
@@ -290,6 +309,7 @@ extension HomeViewController: UISearchBarDelegate {
             }
             
             isSearchActive = true
+            userNotFoundText = searchText
             informationTableView.reloadData()
         }
     }
