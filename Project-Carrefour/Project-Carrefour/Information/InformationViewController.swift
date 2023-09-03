@@ -353,6 +353,6 @@ class InformationViewController: UIViewController,
     }
     
     @objc private func didSwipeBack(_ sender: UISwipeGestureRecognizer) {
-        navigationController?.popViewController(animated: true)
+        router?.navigateBack()
     }
 }
