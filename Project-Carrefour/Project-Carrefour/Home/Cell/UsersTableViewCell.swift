@@ -46,6 +46,12 @@ class UsersTableViewCell: UITableViewCell {
         }
     }
     
+    lazy var selectionImagView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "arrowshape.turn.up.right.circle"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     var linkSelected = PassthroughSubject<String, Never>()
     var linkData: AnyCancellable?
     
@@ -68,6 +74,7 @@ class UsersTableViewCell: UITableViewCell {
         contentView.addSubview(avatarImageView)
         contentView.addSubview(loginLabel)
         contentView.addSubview(urlLabel)
+        contentView.addSubview(selectionImagView)
         
         setupConstraints()
     }
@@ -85,8 +92,13 @@ class UsersTableViewCell: UITableViewCell {
             
             urlLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 10),
             urlLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10),
-            urlLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            urlLabel.trailingAnchor.constraint(equalTo: selectionImagView.leadingAnchor, constant: -10),
             urlLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25),
+            
+            selectionImagView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            selectionImagView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            selectionImagView.heightAnchor.constraint(equalToConstant: 30),
+            selectionImagView.widthAnchor.constraint(equalToConstant: 30),
         ])
     }
     
