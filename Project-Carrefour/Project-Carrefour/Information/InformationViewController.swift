@@ -32,6 +32,10 @@ class InformationViewController: UIViewController,
         loader.progress = 0.0
         loader.progressTintColor = Asset.royal.color
         loader.transform = loader.transform.scaledBy(x: 1, y: 8)
+        loader.layer.cornerRadius = 8
+        loader.clipsToBounds = true
+        loader.layer.sublayers![1].cornerRadius = 8
+        loader.subviews[1].clipsToBounds = true
         loader.translatesAutoresizingMaskIntoConstraints = false
         return loader
     }()
@@ -53,7 +57,6 @@ class InformationViewController: UIViewController,
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .blue
         imageView.layer.cornerRadius = 8
-        imageView.layer.borderWidth = 3
         imageView.layer.borderColor = Asset.royal.color.cgColor
         imageView.backgroundColor = .white
         imageView.clipsToBounds = true
@@ -186,21 +189,36 @@ class InformationViewController: UIViewController,
     }
     
     func displayUserInformation(viewModel: Information.User.ViewModel) {
-        AF.download(viewModel.userData.avatarURL)
-            .downloadProgress {
-                progress in
-                
-                self.imageProgressView.progress = Float(progress.fractionCompleted)
-                
-                if progress.isFinished {
-                    self.imageProgressView.isHidden = true
+        if let imageUrl = viewModel.userData.avatarURL {
+            AF.download(imageUrl)
+                .downloadProgress {
+                    progress in
+                    
+                    self.imageProgressView.progress = Float(progress.fractionCompleted)
+                    
+                    if progress.isFinished {
+                        self.imageProgressView.isHidden = true
+                        self.userImageView.alpha = 0
+                    }
                 }
-            }
-            .responseData { response in
-                if let data = response.value {
-                    self.userImageView.image = UIImage(data: data)
+                .responseData { response in
+                    if response.error != nil {
+                        self.userImageView.image = UIImage(systemName: "person.crop.square.fill")
+                        UIImageView.animate(withDuration: 0.8, delay: 0.2, options: .curveEaseIn, animations: {
+                             self.userImageView.alpha = 1.0
+                        })
+                    } else {
+                        if let data = response.value {
+                            self.userImageView.image = UIImage(data: data)
+                            self.userImageView.layer.borderWidth = 3
+                            
+                            UIImageView.animate(withDuration: 0.8, delay: 0.2, options: .curveEaseIn, animations: {
+                                 self.userImageView.alpha = 1.0
+                            })
+                        }
+                    }
                 }
-            }
+        }
         
         DispatchQueue.main.async {
             self.userLoginNameLabel.text = viewModel.userData.login
