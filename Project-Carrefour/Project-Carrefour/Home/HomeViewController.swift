@@ -246,17 +246,17 @@ extension HomeViewController: UITableViewDelegate,
                 
                 urlRequest.timeoutInterval = 15
             })
-                .downloadProgress {
-                    progress in
+            .downloadProgress {
+                progress in
                     
+            }
+            .responseData { response in
+                if let data = response.value {
+                    cell.avatarImageView.image = UIImage(data: data)
+                } else {
+                    cell.avatarImageView.image = Asset.Images.githubImage.image
                 }
-                .responseData { response in
-                    if let data = response.value {
-                        cell.avatarImageView.image = UIImage(data: data)
-                    } else {
-                        cell.avatarImageView.image = Asset.Images.githubImage.image
-                    }
-                }
+            }
             
             cell.loginLabel.text = usersData![indexPath.row].login
             cell.link = usersData![indexPath.row].htmlURL
