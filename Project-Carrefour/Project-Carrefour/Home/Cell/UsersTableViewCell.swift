@@ -60,6 +60,10 @@ class UsersTableViewCell: UITableViewCell {
     
     private func setupViews() {
         selectionStyle = .none
+        
+        contentView.clipsToBounds = true
+        contentView.backgroundColor = .white
+  
         isUserInteractionEnabled = true
         contentView.addSubview(avatarImageView)
         contentView.addSubview(loginLabel)
@@ -70,19 +74,19 @@ class UsersTableViewCell: UITableViewCell {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             avatarImageView.heightAnchor.constraint(equalToConstant: 60),
             avatarImageView.widthAnchor.constraint(equalToConstant: 60),
             
-            loginLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            loginLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             loginLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10),
             loginLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             
             urlLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 10),
             urlLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10),
             urlLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            urlLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            urlLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25),
         ])
     }
     

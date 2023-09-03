@@ -42,6 +42,7 @@ class HomeViewController: UIViewController,
         tableView.register(UsersTableViewCell.self, forCellReuseIdentifier: UsersTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -123,7 +124,7 @@ class HomeViewController: UIViewController,
     }
     
     func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = Asset.smokeGray.color
         
         emptyMessageView.addSubview(emptyImageView)
         emptyMessageView.addSubview(emptyMessageLabel)
@@ -151,9 +152,9 @@ class HomeViewController: UIViewController,
             searchBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
             informationTableView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 30),
-            informationTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            informationTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             informationTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            informationTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            informationTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
         ])
         
         NSLayoutConstraint.activate([
@@ -291,6 +292,17 @@ extension HomeViewController: UITableViewDelegate,
             router?.navigateToInformation(usersData![indexPath.row].login)
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    {
+        let verticalPadding: CGFloat = 12
+
+        let maskLayer = CALayer()
+        maskLayer.cornerRadius = 10    //if you want round edges
+        maskLayer.backgroundColor = UIColor.black.cgColor
+        maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
+        cell.layer.mask = maskLayer
     }
 }
 

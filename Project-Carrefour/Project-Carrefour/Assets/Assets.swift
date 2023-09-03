@@ -30,6 +30,7 @@ internal enum Asset {
     internal static let githubImage = ImageAsset(name: "github-image")
   }
   internal static let royal = ColorAsset(name: "Royal")
+  internal static let smokeGray = ColorAsset(name: "SmokeGray")
   internal static let turquoise = ColorAsset(name: "Turquoise")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
