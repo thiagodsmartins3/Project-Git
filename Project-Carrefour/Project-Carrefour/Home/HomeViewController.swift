@@ -172,6 +172,7 @@ class HomeViewController: UIViewController,
             emptyMessageLabel.centerXAnchor.constraint(equalTo: emptyMessageView.centerXAnchor),
             emptyMessageLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 10),
             emptyMessageLabel.widthAnchor.constraint(equalToConstant: 150),
+            emptyMessageLabel.bottomAnchor.constraint(lessThanOrEqualTo: emptyMessageView.bottomAnchor, constant: -200)
         ])
     }
     
@@ -308,7 +309,7 @@ extension HomeViewController: UISearchBarDelegate {
             }
             
             isSearchActive = true
-            self.userNotFoundText = searchText
+            userNotFoundText = searchText
             informationTableView.reloadData()
         }
     }
