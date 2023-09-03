@@ -14,6 +14,11 @@
 		201B16902AA171E500D97F5C /* HomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201B168A2AA171E500D97F5C /* HomeModels.swift */; };
 		201B16912AA171E500D97F5C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201B168B2AA171E500D97F5C /* HomeViewController.swift */; };
 		201B16922AA171E500D97F5C /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201B168C2AA171E500D97F5C /* HomeInteractor.swift */; };
+		20288A3D2AA4DBEE0025A895 /* UserInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20288A3B2AA4DBEE0025A895 /* UserInformationModel.swift */; };
+		20288A3E2AA4DBEE0025A895 /* QuotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20288A3C2AA4DBEE0025A895 /* QuotesModel.swift */; };
+		20288A412AA4DC4F0025A895 /* ServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20288A402AA4DC4F0025A895 /* ServiceAPI.swift */; };
+		20288A442AA4DD160025A895 /* YSnackbar in Frameworks */ = {isa = PBXBuildFile; productRef = 20288A432AA4DD160025A895 /* YSnackbar */; };
+		20288A472AA4DD610025A895 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20288A462AA4DD610025A895 /* Assets.swift */; };
 		208228ED2AA168E400E4FA74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208228EC2AA168E400E4FA74 /* AppDelegate.swift */; };
 		208228EF2AA168E400E4FA74 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208228EE2AA168E400E4FA74 /* SceneDelegate.swift */; };
 		208228F62AA168E500E4FA74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 208228F52AA168E500E4FA74 /* Assets.xcassets */; };
@@ -38,6 +43,10 @@
 		201B168A2AA171E500D97F5C /* HomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModels.swift; sourceTree = "<group>"; };
 		201B168B2AA171E500D97F5C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		201B168C2AA171E500D97F5C /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		20288A3B2AA4DBEE0025A895 /* UserInformationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInformationModel.swift; sourceTree = "<group>"; };
+		20288A3C2AA4DBEE0025A895 /* QuotesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotesModel.swift; sourceTree = "<group>"; };
+		20288A402AA4DC4F0025A895 /* ServiceAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAPI.swift; sourceTree = "<group>"; };
+		20288A462AA4DD610025A895 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		208228E92AA168E400E4FA74 /* Project-Carrefour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project-Carrefour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		208228EC2AA168E400E4FA74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		208228EE2AA168E400E4FA74 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +71,7 @@
 			files = (
 				208229022AA1699D00E4FA74 /* Alamofire in Frameworks */,
 				20CF818B2AA1B48D00FCF171 /* BottomSheet in Frameworks */,
+				20288A442AA4DD160025A895 /* YSnackbar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,9 +103,27 @@
 		201B16932AA174B200D97F5C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				20288A3C2AA4DBEE0025A895 /* QuotesModel.swift */,
+				20288A3B2AA4DBEE0025A895 /* UserInformationModel.swift */,
 				208229052AA16A0100E4FA74 /* UsersModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		20288A3F2AA4DC4F0025A895 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				20288A402AA4DC4F0025A895 /* ServiceAPI.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		20288A452AA4DD610025A895 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				20288A462AA4DD610025A895 /* Assets.swift */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		208228E02AA168E400E4FA74 = {
@@ -117,8 +145,9 @@
 		208228EB2AA168E400E4FA74 /* Project-Carrefour */ = {
 			isa = PBXGroup;
 			children = (
+				20288A452AA4DD610025A895 /* Assets */,
+				20288A3F2AA4DC4F0025A895 /* Service */,
 				20CF818C2AA1B4F900FCF171 /* Information */,
-				20CF81882AA1B34E00FCF171 /* CustomMessage */,
 				20CF81862AA19DA000FCF171 /* Localizable */,
 				201B16932AA174B200D97F5C /* Model */,
 				201B16862AA171D400D97F5C /* Home */,
@@ -137,13 +166,6 @@
 				20CF81842AA19D8800FCF171 /* Strings.swift */,
 			);
 			path = Localizable;
-			sourceTree = "<group>";
-		};
-		20CF81882AA1B34E00FCF171 /* CustomMessage */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CustomMessage;
 			sourceTree = "<group>";
 		};
 		20CF818C2AA1B4F900FCF171 /* Information */ = {
@@ -178,6 +200,7 @@
 			packageProductDependencies = (
 				208229012AA1699D00E4FA74 /* Alamofire */,
 				20CF818A2AA1B48D00FCF171 /* BottomSheet */,
+				20288A432AA4DD160025A895 /* YSnackbar */,
 			);
 			productName = "Project-Carrefour";
 			productReference = 208228E92AA168E400E4FA74 /* Project-Carrefour.app */;
@@ -211,6 +234,7 @@
 			packageReferences = (
 				208229002AA1699D00E4FA74 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				20CF81892AA1B48D00FCF171 /* XCRemoteSwiftPackageReference "BottomSheet" */,
+				20288A422AA4DD160025A895 /* XCRemoteSwiftPackageReference "ysnackbar-ios" */,
 			);
 			productRefGroup = 208228EA2AA168E400E4FA74 /* Products */;
 			projectDirPath = "";
@@ -245,8 +269,12 @@
 				208228ED2AA168E400E4FA74 /* AppDelegate.swift in Sources */,
 				201B16912AA171E500D97F5C /* HomeViewController.swift in Sources */,
 				20CF81932AA1B52200FCF171 /* InformationPresenter.swift in Sources */,
+				20288A3E2AA4DBEE0025A895 /* QuotesModel.swift in Sources */,
+				20288A472AA4DD610025A895 /* Assets.swift in Sources */,
 				20CF81982AA1B52200FCF171 /* InformationInteractor.swift in Sources */,
 				201B168D2AA171E500D97F5C /* HomePresenter.swift in Sources */,
+				20288A412AA4DC4F0025A895 /* ServiceAPI.swift in Sources */,
+				20288A3D2AA4DBEE0025A895 /* UserInformationModel.swift in Sources */,
 				20CF81962AA1B52200FCF171 /* InformationModels.swift in Sources */,
 				201B168F2AA171E500D97F5C /* HomeRouter.swift in Sources */,
 				208229062AA16A0100E4FA74 /* UsersModel.swift in Sources */,
@@ -469,6 +497,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		20288A422AA4DD160025A895 /* XCRemoteSwiftPackageReference "ysnackbar-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yml-org/ysnackbar-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		208229002AA1699D00E4FA74 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -488,6 +524,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		20288A432AA4DD160025A895 /* YSnackbar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20288A422AA4DD160025A895 /* XCRemoteSwiftPackageReference "ysnackbar-ios" */;
+			productName = YSnackbar;
+		};
 		208229012AA1699D00E4FA74 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 208229002AA1699D00E4FA74 /* XCRemoteSwiftPackageReference "Alamofire" */;
