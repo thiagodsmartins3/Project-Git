@@ -29,8 +29,8 @@ class InformationInteractor: InformationBusinessLogic, InformationDataStore {
             presenter?.presentUserInformation(response: .init(response: data!))
             presenter?.presentLoading(response: .init(isLoading: false))
         } catch let error {
-            print(error.localizedDescription)
             presenter?.presentLoading(response: .init(isLoading: false))
+            presenter?.presentError(response: .init(message: error.localizedDescription))
         }
     }
     
@@ -41,7 +41,7 @@ class InformationInteractor: InformationBusinessLogic, InformationDataStore {
             let data = try await worker?.requestQuotes(request.endpoint)
             presenter?.presentQuote(response: .init(response: data!))
         } catch let error {
-            print(error.localizedDescription)
+            presenter?.presentError(response: .init(message: error.localizedDescription))
         }
     }
 }

@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import YSnackbar
 
 @objc protocol InformationRoutingLogic {
-    
+    func displayError(_ message: String)
 }
 
 protocol InformationDataPassing {
@@ -20,4 +21,14 @@ class InformationRouter: NSObject, InformationRoutingLogic, InformationDataPassi
     var dataStore: InformationDataStore?
     
     // MARK: Routing
+    
+    func displayError(_ message: String) {
+        let snack = Snack(alignment: .bottom,
+                          title: "Ops, correu um erro",
+                          message: message,
+                          reuseIdentifier: "yml.co",
+                          icon: UIImage(named: "wifi"),
+                          duration: 8.0)
+        SnackbarManager.add(snack: snack)
+    }
 }

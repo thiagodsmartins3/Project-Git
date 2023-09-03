@@ -9,3 +9,5 @@
 "searchbar.text.placeholder" = "Search what you wish";
 "information.text.user" = "Hi!, I'm ";
 "information.text.message" = "Hey!, how about knowing a little more about who I am?";
+
+"error.request.message" = "Ops, there was a problem with the service ;(";

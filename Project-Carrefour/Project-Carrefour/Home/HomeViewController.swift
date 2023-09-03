@@ -140,7 +140,7 @@ class HomeViewController: UIViewController,
     }
     
     func displayErrorMessage(viewModel: Home.ErrorMessage.ViewModel) {
-        
+        router?.displayError(L10n.Error.Request.message)
     }
 }
 

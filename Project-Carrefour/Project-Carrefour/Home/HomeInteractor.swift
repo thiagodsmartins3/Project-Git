@@ -28,8 +28,8 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore {
             presenter?.presentUsersData(response: .init(response: data!))
             presenter?.presentLoading(response: .init(isLoading: false))
         } catch let error {
-            print(error.localizedDescription)
             presenter?.presentLoading(response: .init(isLoading: false))
+            presenter?.presentError(response: .init(message: error.localizedDescription))
         }
     }
 }

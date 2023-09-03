@@ -337,6 +337,6 @@ class InformationViewController: UIViewController,
     }
     
     func displayErrorMessage(viewModel: Information.ErrorMessage.ViewModel) {
-        
+        router?.displayError(viewModel.message)
     }
 }
