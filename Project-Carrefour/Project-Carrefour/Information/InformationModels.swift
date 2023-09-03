@@ -22,6 +22,18 @@ enum Information {
         }
     }
     
+    enum Quote {
+        struct Request {
+            let endpoint: String
+        }
+        struct Response {
+            let response: QuotesModel
+        }
+        struct ViewModel {
+            let quoteData: QuotesModel
+        }
+    }
+    
     enum Loading {
         struct Request {
             let isLoading: Bool

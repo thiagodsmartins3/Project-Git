@@ -9,14 +9,18 @@ import Foundation
 import Alamofire
 
 enum ServiceURL {
-    case endpoint(url: String)
+    case endpoint(url: String, isOtherUrl: Bool = false)
 }
 
 extension ServiceURL {
     var path: String {
         switch self {
-        case .endpoint(let url):
-            return "https://api.github.com/\(url)"
+        case .endpoint(let url, let isOtherUrl):
+            if isOtherUrl {
+                return url
+            } else {
+                return "https://api.github.com/\(url)"
+            }
         }
     }
 }

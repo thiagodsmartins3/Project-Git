@@ -9,6 +9,7 @@ import UIKit
 
 protocol InformationPresentationLogic {
     func presentUserInformation(response: Information.User.Response)
+    func presentQuote(response: Information.Quote.Response)
     func presentLoading(response: Information.Loading.Response)
     func presentError(response: Information.ErrorMessage.Response)
 }
@@ -26,5 +27,9 @@ class InformationPresenter: InformationPresentationLogic {
     
     func presentError(response: Information.ErrorMessage.Response) {
         viewController?.displayErrorMessage(viewModel: .init(message: response.message))
+    }
+    
+    func presentQuote(response: Information.Quote.Response) {
+        viewController?.displayQuote(viewModel: .init(quoteData: response.response))
     }
 }

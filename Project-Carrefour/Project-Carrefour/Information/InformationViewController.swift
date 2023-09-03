@@ -10,13 +10,14 @@ import Alamofire
 
 protocol InformationDisplayLogic: AnyObject {
     func displayUserInformation(viewModel: Information.User.ViewModel)
+    func displayQuote(viewModel: Information.Quote.ViewModel)
     func displayLoading(viewModel: Information.Loading.ViewModel)
     func displayErrorMessage(viewModel: Information.ErrorMessage.ViewModel)
 }
 
 class InformationViewController: UIViewController,
                                  InformationDisplayLogic {
-    
+
     var interactor: InformationBusinessLogic?
     var router: (NSObjectProtocol & InformationRoutingLogic & InformationDataPassing)?
     
@@ -90,16 +91,7 @@ class InformationViewController: UIViewController,
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    lazy private var userRealNameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 15.0)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
+        
     lazy private var userGreetingsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -116,6 +108,16 @@ class InformationViewController: UIViewController,
         label.numberOfLines = 0
         label.text = L10n.Information.Text.message
         label.font = UIFont.boldSystemFont(ofSize: 12.0)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy private var userBioLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.font = UIFont.boldSystemFont(ofSize: 15.0)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -178,6 +180,13 @@ class InformationViewController: UIViewController,
             } catch let error {
                 print(error.localizedDescription)
             }
+            
+            do {
+                try await self.interactor?.requestQuotes(request: .init(endpoint: "https://zenquotes.io/api/random"))
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
         }
     }
     
@@ -186,11 +195,10 @@ class InformationViewController: UIViewController,
         userImageView.addSubview(userLocationLabel)
         userImageView.addSubview(imageProgressView)
     
-        //userInformationView.addSubview(userRealNameLabel)
         userInformationView.layer.addSublayer(gradient)
-        userInformationView.bringSubviewToFront(userRealNameLabel)
         userInformationView.addSubview(userGreetingsLabel)
         userInformationView.addSubview(userMessageLabel)
+        userInformationView.addSubview(userBioLabel)
         
         informationView.addSubview(userImageView)
         informationView.addSubview(userInformationView)
@@ -264,8 +272,10 @@ class InformationViewController: UIViewController,
             userMessageLabel.topAnchor.constraint(equalTo: userGreetingsLabel.bottomAnchor, constant: 5),
             userMessageLabel.leadingAnchor.constraint(equalTo: userInformationView.leadingAnchor, constant: 20),
             userMessageLabel.trailingAnchor.constraint(equalTo: userInformationView.trailingAnchor, constant: -20),
-            //userMessageLabel.bottomAnchor.constraint(equalTo: userInformationView.bottomAnchor, constant: -10),
-            //userRealNameLabel.trailingAnchor.constraint(equalTo: userInformationView.trailingAnchor, constant: -20),
+            
+            userBioLabel.topAnchor.constraint(equalTo: userMessageLabel.bottomAnchor, constant: 20),
+            userBioLabel.leadingAnchor.constraint(equalTo: userInformationView.leadingAnchor, constant: 20),
+            userBioLabel.trailingAnchor.constraint(equalTo: userInformationView.trailingAnchor, constant: -29),
         ])
     }
     
@@ -304,8 +314,13 @@ class InformationViewController: UIViewController,
         DispatchQueue.main.async {
             self.userLoginNameLabel.text = viewModel.userData.login
             self.userLocationLabel.text = viewModel.userData.location
-            self.userRealNameLabel.text = viewModel.userData.name
             self.userGreetingsLabel.text = L10n.Information.Text.user + (viewModel.userData.name ?? "")
+        }
+    }
+    
+    func displayQuote(viewModel: Information.Quote.ViewModel) {
+        DispatchQueue.main.async {
+            self.userBioLabel.text = viewModel.quoteData[0].q
         }
     }
     

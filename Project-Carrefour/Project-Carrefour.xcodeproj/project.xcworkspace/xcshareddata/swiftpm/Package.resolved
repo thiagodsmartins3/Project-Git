@@ -17,6 +17,33 @@
         "revision" : "5a5aa250483690820feb016b7760539938d4fbb6",
         "version" : "0.3.0"
       }
+    },
+    {
+      "identity" : "ycoreui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yml-org/YCoreUI.git",
+      "state" : {
+        "revision" : "38f2a285e43c044c2693a5a21e958b4b78c81492",
+        "version" : "1.7.0"
+      }
+    },
+    {
+      "identity" : "ymattertype",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yml-org/YMatterType.git",
+      "state" : {
+        "revision" : "3a9f8dd625ecfde9f9cb2c2e236b102fda148e95",
+        "version" : "1.7.0"
+      }
+    },
+    {
+      "identity" : "ysnackbar-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yml-org/ysnackbar-ios.git",
+      "state" : {
+        "revision" : "159d3aa10c576887b68531518c5afe7003cd63d5",
+        "version" : "1.1.2"
+      }
     }
   ],
   "version" : 2
