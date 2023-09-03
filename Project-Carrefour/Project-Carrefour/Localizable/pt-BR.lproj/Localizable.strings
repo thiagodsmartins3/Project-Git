@@ -14,3 +14,5 @@
 "error.empty.message" = "Sem usuários para visualizar";
 
 "error.notfound.message" = "Usuário \"%@\" não encontrado";
+
+"navigation.back.message" = "Voltar/Swipe Right";

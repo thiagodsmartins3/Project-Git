@@ -34,6 +34,12 @@ internal enum L10n {
       internal static let user = L10n.tr("Localizable", "information.text.user", fallback: "Hi!, I'm ")
     }
   }
+  internal enum Navigation {
+    internal enum Back {
+      /// Back/Swipe Right
+      internal static let message = L10n.tr("Localizable", "navigation.back.message", fallback: "Back/Swipe Right")
+    }
+  }
   internal enum Searchbar {
     internal enum Text {
       /// Localizable.strings

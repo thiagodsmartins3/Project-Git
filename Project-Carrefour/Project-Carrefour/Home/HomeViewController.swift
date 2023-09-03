@@ -118,6 +118,8 @@ class HomeViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationController()
+        
         Task {
             try await interactor?.requestUsers(request: .init(endpoint: "users"))
         }
@@ -204,6 +206,16 @@ class HomeViewController: UIViewController,
     
     private func userNotFoundMessage() {
         emptyMessageLabel.text = L10n.Error.Notfound.message(userNotFoundText)
+    }
+    
+    private func setupNavigationController() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.tintColor = Asset.royal.color
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left.circle.fill")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "square.and.arrow.up.on.square.fill")
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 

@@ -181,6 +181,9 @@ class InformationViewController: UIViewController,
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        navigationController?.navigationBar.topItem?.title = L10n.Navigation.Back.message
+        
         setupViews()
         
         Task {
