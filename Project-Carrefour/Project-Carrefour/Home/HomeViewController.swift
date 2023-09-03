@@ -241,7 +241,11 @@ extension HomeViewController: UITableViewDelegate,
                 self.router?.navigateToUrl(data)
             }
         } else {
-            AF.download(usersData![indexPath.row].avatarURL)
+            AF.download(usersData![indexPath.row].avatarURL, requestModifier: {
+                urlRequest in
+                
+                urlRequest.timeoutInterval = 15
+            })
                 .downloadProgress {
                     progress in
                     
@@ -249,6 +253,8 @@ extension HomeViewController: UITableViewDelegate,
                 .responseData { response in
                     if let data = response.value {
                         cell.avatarImageView.image = UIImage(data: data)
+                    } else {
+                        cell.avatarImageView.image = Asset.Images.githubImage.image
                     }
                 }
             
