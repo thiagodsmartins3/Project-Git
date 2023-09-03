@@ -82,6 +82,57 @@ class InformationViewController: UIViewController,
 
     }()
     
+    
+    lazy private var userInformationView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 8
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy private var userRealNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 15.0)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy private var userGreetingsLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.numberOfLines = 3
+        label.font = UIFont.boldSystemFont(ofSize: 20.0)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    lazy private var userMessageLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.text = L10n.Information.Text.message
+        label.font = UIFont.boldSystemFont(ofSize: 12.0)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var gradient: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.type = .axial
+        gradient.colors = [
+            Asset.turquoise.color.cgColor,
+            Asset.royal.color.cgColor,
+        ]
+        gradient.startPoint = CGPoint(x: 0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        return gradient
+    }()
+    
     private var endpoint: String!
     
     init() {
@@ -134,8 +185,15 @@ class InformationViewController: UIViewController,
         userImageView.addSubview(userLoginNameLabel)
         userImageView.addSubview(userLocationLabel)
         userImageView.addSubview(imageProgressView)
+    
+        //userInformationView.addSubview(userRealNameLabel)
+        userInformationView.layer.addSublayer(gradient)
+        userInformationView.bringSubviewToFront(userRealNameLabel)
+        userInformationView.addSubview(userGreetingsLabel)
+        userInformationView.addSubview(userMessageLabel)
         
         informationView.addSubview(userImageView)
+        informationView.addSubview(userInformationView)
         
         informationScrollView.addSubview(informationView)
         
@@ -143,6 +201,12 @@ class InformationViewController: UIViewController,
         view.addSubview(loaderActivityView)
         
         setupConstraints()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        gradient.frame = userInformationView.bounds
     }
     
     private func setupConstraints() {
@@ -186,6 +250,23 @@ class InformationViewController: UIViewController,
             imageProgressView.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: 10),
             imageProgressView.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: -10)
         ])
+        
+        NSLayoutConstraint.activate([
+            userInformationView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 20),
+            userInformationView.leadingAnchor.constraint(equalTo: informationView.leadingAnchor, constant: 20),
+            userInformationView.trailingAnchor.constraint(equalTo: informationView.trailingAnchor, constant: -20),
+            userInformationView.heightAnchor.constraint(equalToConstant: 300),
+            
+            userGreetingsLabel.topAnchor.constraint(equalTo: userInformationView.topAnchor, constant: 10),
+            userGreetingsLabel.leadingAnchor.constraint(equalTo: userInformationView.leadingAnchor, constant: 10),
+            userGreetingsLabel.trailingAnchor.constraint(equalTo: userInformationView.trailingAnchor, constant: -10),
+            
+            userMessageLabel.topAnchor.constraint(equalTo: userGreetingsLabel.bottomAnchor, constant: 5),
+            userMessageLabel.leadingAnchor.constraint(equalTo: userInformationView.leadingAnchor, constant: 20),
+            userMessageLabel.trailingAnchor.constraint(equalTo: userInformationView.trailingAnchor, constant: -20),
+            //userMessageLabel.bottomAnchor.constraint(equalTo: userInformationView.bottomAnchor, constant: -10),
+            //userRealNameLabel.trailingAnchor.constraint(equalTo: userInformationView.trailingAnchor, constant: -20),
+        ])
     }
     
     func displayUserInformation(viewModel: Information.User.ViewModel) {
@@ -223,6 +304,8 @@ class InformationViewController: UIViewController,
         DispatchQueue.main.async {
             self.userLoginNameLabel.text = viewModel.userData.login
             self.userLocationLabel.text = viewModel.userData.location
+            self.userRealNameLabel.text = viewModel.userData.name
+            self.userGreetingsLabel.text = L10n.Information.Text.user + (viewModel.userData.name ?? "")
         }
     }
     

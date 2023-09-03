@@ -7,3 +7,5 @@
 */
 
 "searchbar.text.placeholder" = "Procure aqui o que deseja";
+"information.text.user" = "Olá!, eu sou ";
+"information.text.message" = "Hey!, que tal saber um pouco mais sobre quem eu sou?";

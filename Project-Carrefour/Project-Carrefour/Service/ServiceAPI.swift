@@ -23,8 +23,6 @@ extension ServiceURL {
 
 final class ServiceAPI {
     func fetchData<T: Codable>(_ endpoint: ServiceURL, dataType: T.Type) async throws -> T {
-        
-        print(endpoint)
         return try await withCheckedThrowingContinuation {
             continuation in
             
