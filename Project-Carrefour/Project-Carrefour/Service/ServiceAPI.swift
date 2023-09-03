@@ -33,8 +33,12 @@ final class ServiceAPI {
             AF.request(
                 endpoint.path,
                 method: .get,
-                parameters: .none
-            )
+                parameters: .none,
+                requestModifier: {
+                    urlRequest in
+                    urlRequest.timeoutInterval = 15
+                    urlRequest.allowsConstrainedNetworkAccess = false
+                })
             .responseDecodable(of: T.self) {
                 response in
                 

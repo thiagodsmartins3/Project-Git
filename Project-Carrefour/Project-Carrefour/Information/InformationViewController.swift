@@ -23,6 +23,8 @@ class InformationViewController: UIViewController,
     
     lazy var loaderActivityView: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
+        loader.backgroundColor = .white
+        loader.color = Asset.royal.color
         loader.translatesAutoresizingMaskIntoConstraints = false
         return loader
     }()
@@ -207,6 +209,7 @@ class InformationViewController: UIViewController,
         
         view.addSubview(informationScrollView)
         view.addSubview(loaderActivityView)
+        view.bringSubviewToFront(loaderActivityView)
         
         setupConstraints()
     }

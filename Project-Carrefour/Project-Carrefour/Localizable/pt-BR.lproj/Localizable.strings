@@ -11,3 +11,4 @@
 "information.text.message" = "Hey!, que tal saber um pouco mais sobre quem eu sou?";
 
 "error.request.message" = "Ops, ocorreu um problema com o serviço ;(";
+"error.empty.message" = "Sem usuários para visualizar";

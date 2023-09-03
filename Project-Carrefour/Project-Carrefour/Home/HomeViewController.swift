@@ -23,6 +23,8 @@ class HomeViewController: UIViewController,
     
     lazy var loaderActivityView: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
+        loader.backgroundColor = .white
+        loader.color = Asset.royal.color
         loader.translatesAutoresizingMaskIntoConstraints = false
         return loader
     }()
@@ -42,6 +44,32 @@ class HomeViewController: UIViewController,
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
+    }()
+    
+    lazy var emptyMessageView: UIView = {
+        let view = UIView(frame: .zero)
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var emptyMessageLabel: UILabel = {
+        let label = UILabel()
+        label.text = L10n.Error.Empty.message
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = Asset.grey.color
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var emptyImageView: UIImageView = {
+        let imageView = UIImageView(image: Asset.Images.githubImage.image)
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private var usersData: UsersModel? = nil {
@@ -96,9 +124,14 @@ class HomeViewController: UIViewController,
     func setupViews() {
         view.backgroundColor = .white
         
+        emptyMessageView.addSubview(emptyImageView)
+        emptyMessageView.addSubview(emptyMessageLabel)
+        informationTableView.addSubview(emptyMessageView)
+        
         view.addSubview(loaderActivityView)
         view.addSubview(searchBarView)
         view.addSubview(informationTableView)
+        view.bringSubviewToFront(loaderActivityView)
         
         setupConstraints()
     }
@@ -121,6 +154,24 @@ class HomeViewController: UIViewController,
             informationTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             informationTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+        
+        NSLayoutConstraint.activate([
+            emptyMessageView.topAnchor.constraint(equalTo: informationTableView.topAnchor),
+            emptyMessageView.leadingAnchor.constraint(equalTo: informationTableView.leadingAnchor),
+            emptyMessageView.bottomAnchor.constraint(equalTo: informationTableView.bottomAnchor),
+            emptyMessageView.trailingAnchor.constraint(equalTo: informationTableView.trailingAnchor),
+            emptyMessageView.widthAnchor.constraint(equalTo: informationTableView.widthAnchor),
+            emptyMessageView.heightAnchor.constraint(equalTo: informationTableView.heightAnchor),
+            
+            emptyImageView.centerXAnchor.constraint(equalTo: emptyMessageView.centerXAnchor),
+            emptyImageView.topAnchor.constraint(equalTo: emptyMessageView.topAnchor, constant: 100),
+            emptyImageView.heightAnchor.constraint(equalToConstant: 120),
+            emptyImageView.widthAnchor.constraint(equalToConstant: 120),
+            
+            emptyMessageLabel.centerXAnchor.constraint(equalTo: emptyMessageView.centerXAnchor),
+            emptyMessageLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 10),
+            emptyMessageLabel.widthAnchor.constraint(equalToConstant: 150),
+        ])
     }
     
     func displayUsers(viewModel: Home.Users.ViewModel) {
@@ -140,6 +191,11 @@ class HomeViewController: UIViewController,
     }
     
     func displayErrorMessage(viewModel: Home.ErrorMessage.ViewModel) {
+        DispatchQueue.main.async {
+            self.informationTableView.reloadData()
+            self.emptyMessageView.isHidden = false
+        }
+        
         router?.displayError(L10n.Error.Request.message)
     }
 }
