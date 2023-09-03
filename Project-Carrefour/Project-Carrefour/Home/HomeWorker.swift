@@ -9,39 +9,11 @@ import UIKit
 import Alamofire
 import Combine
 
-enum ServiceWorker {
-    case endpoint(url: String)
-}
-
-extension ServiceWorker {
-    var path: String {
-        switch self {
-        case .endpoint(let url):
-            return "https://api.github.com/\(url)"
-        }
-    }
-}
 
 final class HomeWorker {
-    func fetchData<T: Codable>(_ endpoint: ServiceWorker, dataType: T.Type) async throws -> T {
-        return try await withCheckedThrowingContinuation {
-            continuation in
-            
-            AF.request(
-                endpoint.path,
-                method: .get,
-                parameters: .none
-            )
-            .responseDecodable(of: T.self) {
-                response in
-                
-                switch response.result {
-                case .success(let data):
-                    continuation.resume(returning: data)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    private let serviceAPI = ServiceAPI()
+    
+    func requestUsers(_ endpoint: String) async throws -> UsersModel {
+        return try await serviceAPI.fetchData(.endpoint(url: endpoint), dataType: UsersModel.self)
     }
 }

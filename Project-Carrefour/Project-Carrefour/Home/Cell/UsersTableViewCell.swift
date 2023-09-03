@@ -13,6 +13,10 @@ class UsersTableViewCell: UITableViewCell {
     
     lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
+        imageView.layer.cornerRadius = 8
+        imageView.layer.borderWidth = 3
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.borderColor = Asset.royal.color.cgColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         return imageView

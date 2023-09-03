@@ -24,13 +24,12 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore {
         
         presenter?.presentLoading(response: .init(isLoading: true))
         do {
-            let data = (try await worker?.fetchData(.endpoint(url: request.endpoint),
-                                                    dataType: UsersModel.self))!
-            presenter?.presentUsersData(response: .init(response: data))
+            let data = try await worker?.requestUsers(request.endpoint)
+            presenter?.presentUsersData(response: .init(response: data!))
             presenter?.presentLoading(response: .init(isLoading: false))
         } catch let error {
-            print(error.localizedDescription)
             presenter?.presentLoading(response: .init(isLoading: false))
+            presenter?.presentError(response: .init(message: error.localizedDescription))
         }
     }
 }

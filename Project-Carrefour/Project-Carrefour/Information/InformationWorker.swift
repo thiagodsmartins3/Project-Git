@@ -8,5 +8,13 @@
 import UIKit
 
 class InformationWorker {
-
+    private let serviceAPI = ServiceAPI()
+    
+    func requestUserInformation(_ endpoint: String) async throws -> UserInformationModel {
+        return try await serviceAPI.fetchData(.endpoint(url: endpoint), dataType: UserInformationModel.self)
+    }
+    
+    func requestQuotes(_ endpoint: String) async throws -> QuotesModel {
+        return try await serviceAPI.fetchData(.endpoint(url: endpoint, isOtherUrl: true), dataType: QuotesModel.self)
+    }
 }

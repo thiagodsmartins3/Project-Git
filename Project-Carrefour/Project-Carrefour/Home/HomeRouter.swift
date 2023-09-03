@@ -7,10 +7,12 @@
 
 import UIKit
 import SafariServices
+import YSnackbar
 
 @objc protocol HomeRoutingLogic: AnyObject {
-    func navigateToInformation(source: HomeViewController, destination: InformationViewController)
+    func navigateToInformation(_ endpoint: String)
     func navigateToUrl(_ url: String)
+    func displayError(_ message: String)
 }
 
 protocol HomeDataPassing {
@@ -24,8 +26,8 @@ class HomeRouter: NSObject,
     var dataStore: HomeDataStore?
     
     // MARK: Navigation
-    func navigateToInformation(source: HomeViewController, destination: InformationViewController) {
-        viewController?.navigationController?.pushViewController(InformationViewController(), animated: true)
+    func navigateToInformation(_ endpoint: String) {
+        viewController?.navigationController?.pushViewController(InformationViewController(endpoint), animated: true)
     }
     
     func navigateToUrl(_ url: String) {
@@ -35,6 +37,19 @@ class HomeRouter: NSObject,
 
             let vc = SFSafariViewController(url: url, configuration: config)
             viewController?.present(vc, animated: true)
+        }
+    }
+    
+    func displayError(_ message: String) {
+        let snack = Snack(alignment: .top,
+                          title: "Ops, correu um erro",
+                          message: message,
+                          reuseIdentifier: "yml.co",
+                          icon: UIImage(systemName: "exclamationmark.triangle.fill"),
+                          duration: 8.0)
+        
+        DispatchQueue.main.async {
+            SnackbarManager.add(snack: snack)
         }
     }
 }
