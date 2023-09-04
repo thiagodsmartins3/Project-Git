@@ -40,6 +40,16 @@ internal enum L10n {
       internal static let message = L10n.tr("Localizable", "navigation.back.message", fallback: "Back/Swipe Right")
     }
   }
+  internal enum Refresh {
+    internal enum Error {
+      /// Unable to reload data
+      internal static let message = L10n.tr("Localizable", "refresh.error.message", fallback: "Unable to reload data")
+    }
+    internal enum Text {
+      /// Refreshing
+      internal static let message = L10n.tr("Localizable", "refresh.text.message", fallback: "Refreshing")
+    }
+  }
   internal enum Searchbar {
     internal enum Text {
       /// Localizable.strings

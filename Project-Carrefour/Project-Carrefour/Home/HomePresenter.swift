@@ -9,8 +9,10 @@ import UIKit
 
 protocol HomePresentationLogic {
     func presentUsersData(response: Home.Users.Response)
+    func presentRefreshUsersData(response: Home.Users.Response)
     func presentLoading(response: Home.Loading.Response)
     func presentError(response: Home.ErrorMessage.Response)
+    func presentRefreshError(response: Home.ErrorMessage.Response)
 }
 
 class HomePresenter: HomePresentationLogic {
@@ -20,11 +22,19 @@ class HomePresenter: HomePresentationLogic {
         viewController?.displayUsers(viewModel: .init(usersData: response.response))
     }
     
+    func presentRefreshUsersData(response: Home.Users.Response) {
+        viewController?.displayRefreshUsers(viewModel: .init(usersData: response.response))
+    }
+    
     func presentLoading(response: Home.Loading.Response) {
         viewController?.displayLoading(viewModel: .init(isLoading: response.isLoading))
     }
     
     func presentError(response: Home.ErrorMessage.Response) {
         viewController?.displayErrorMessage(viewModel: .init(message: response.message))
+    }
+    
+    func presentRefreshError(response: Home.ErrorMessage.Response) {
+        viewController?.displayRefreshErrorMessage(viewModel: .init(message: response.message))
     }
 }

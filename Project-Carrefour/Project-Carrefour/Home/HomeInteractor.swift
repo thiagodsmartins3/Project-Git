@@ -9,6 +9,7 @@ import UIKit
 
 protocol HomeBusinessLogic {
     func requestUsers(request: Home.Users.Request) async throws
+    func requesRefreshUsers(request: Home.Users.Request) async throws
 }
 
 protocol HomeDataStore {
@@ -30,6 +31,17 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore {
         } catch let error {
             presenter?.presentLoading(response: .init(isLoading: false))
             presenter?.presentError(response: .init(message: error.localizedDescription))
+        }
+    }
+    
+    func requesRefreshUsers(request: Home.Users.Request) async throws {
+        worker = HomeWorker()
+
+        do {
+            let data = try await worker?.requestUsers(request.endpoint)
+            presenter?.presentRefreshUsersData(response: .init(response: data!))
+        } catch let error {
+            presenter?.presentRefreshError(response: .init(message: error.localizedDescription))
         }
     }
 }

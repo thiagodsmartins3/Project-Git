@@ -13,6 +13,7 @@ import YSnackbar
     func navigateToInformation(_ endpoint: String)
     func navigateToUrl(_ url: String)
     func displayError(_ message: String)
+    func displayRefreshError(_ message: String)
 }
 
 protocol HomeDataPassing {
@@ -43,6 +44,20 @@ class HomeRouter: NSObject,
     func displayError(_ message: String) {
         let snack = Snack(alignment: .top,
                           title: "Ops, correu um erro",
+                          message: message,
+                          reuseIdentifier: "yml.co",
+                          icon: UIImage(systemName: "exclamationmark.triangle.fill"),
+                          duration: 8.0)
+        
+        DispatchQueue.main.async {
+            SnackbarManager.add(snack: snack)
+        }
+    }
+    
+    func displayRefreshError(_ message: String) {
+        let image = UIImage(systemName: "exclamationmark.triangle.fill")
+        let snack = Snack(alignment: .bottom,
+                          title: "Problema de recarregamento",
                           message: message,
                           reuseIdentifier: "yml.co",
                           icon: UIImage(systemName: "exclamationmark.triangle.fill"),

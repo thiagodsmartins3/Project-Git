@@ -16,4 +16,8 @@ final class HomeWorker {
     func requestUsers(_ endpoint: String) async throws -> UsersModel {
         return try await serviceAPI.fetchData(.endpoint(url: endpoint), dataType: UsersModel.self)
     }
+    
+    func requestRefreshUsers(_ endpoint: String) async throws -> UsersModel {
+        return try await serviceAPI.fetchData(.endpoint(url: endpoint), dataType: UsersModel.self)
+    }
 }

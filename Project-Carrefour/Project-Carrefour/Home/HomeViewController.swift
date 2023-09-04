@@ -11,13 +11,14 @@ import Combine
 
 protocol HomeDisplayLogic: AnyObject {
     func displayUsers(viewModel: Home.Users.ViewModel)
+    func displayRefreshUsers(viewModel: Home.Users.ViewModel)
     func displayLoading(viewModel: Home.Loading.ViewModel)
     func displayErrorMessage(viewModel: Home.ErrorMessage.ViewModel)
+    func displayRefreshErrorMessage(viewModel: Home.ErrorMessage.ViewModel)
 }
 
 class HomeViewController: UIViewController,
                           HomeDisplayLogic {
-    
     var interactor: HomeBusinessLogic?
     var router: (NSObjectProtocol & HomeRoutingLogic & HomeDataPassing)?
     
@@ -73,6 +74,16 @@ class HomeViewController: UIViewController,
         return imageView
     }()
     
+    private lazy var pushToRefresh: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.attributedTitle = NSAttributedString(string: L10n.Refresh.Text.message, attributes: [
+            NSAttributedString.Key.foregroundColor : Asset.royal.color
+        ])
+        refresh.tintColor = Asset.royal.color
+        refresh.addTarget(self, action: #selector(didPushToRefresh(_:)), for: UIControl.Event.valueChanged)
+        return refresh
+    }()
+    
     private var usersData: UsersModel? = nil {
         didSet {
             DispatchQueue.main.async {
@@ -125,12 +136,21 @@ class HomeViewController: UIViewController,
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    
+    }
+    
     func setupViews() {
         view.backgroundColor = Asset.smokeGray.color
         
         emptyMessageView.addSubview(emptyImageView)
         emptyMessageView.addSubview(emptyMessageLabel)
+        
         informationTableView.addSubview(emptyMessageView)
+        informationTableView.addSubview(pushToRefresh)
         
         view.addSubview(loaderActivityView)
         view.addSubview(searchBarView)
@@ -204,6 +224,22 @@ class HomeViewController: UIViewController,
         router?.displayError(L10n.Error.Request.message)
     }
     
+    func displayRefreshUsers(viewModel: Home.Users.ViewModel) {
+        DispatchQueue.main.async {
+            self.pushToRefresh.endRefreshing()
+        }
+        
+        usersData = viewModel.usersData
+    }
+    
+    func displayRefreshErrorMessage(viewModel: Home.ErrorMessage.ViewModel) {
+        DispatchQueue.main.async {
+            self.pushToRefresh.endRefreshing()
+        }
+        
+        router?.displayRefreshError(L10n.Refresh.Error.message)
+    }
+    
     private func userNotFoundMessage() {
         emptyMessageLabel.text = L10n.Error.Notfound.message(userNotFoundText)
     }
@@ -216,6 +252,12 @@ class HomeViewController: UIViewController,
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    @objc private func didPushToRefresh(_ sender: UIRefreshControl) {
+        Task {
+            try await interactor?.requesRefreshUsers(request: .init(endpoint: "users"))
+        }
     }
 }
 

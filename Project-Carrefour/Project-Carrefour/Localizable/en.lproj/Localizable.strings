@@ -17,3 +17,7 @@
 "error.notfound.message" = "User \"%@\" not found";
 
 "navigation.back.message" = "Back/Swipe Right";
+
+"refresh.text.message" = "Refreshing";
+
+"refresh.error.message" = "Unable to reload data";

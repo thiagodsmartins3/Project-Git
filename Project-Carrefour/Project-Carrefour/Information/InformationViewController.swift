@@ -182,7 +182,9 @@ class InformationViewController: UIViewController,
         
         view.backgroundColor = .white
         
-        navigationController?.navigationBar.topItem?.title = L10n.Navigation.Back.message
+        let backButton = UIBarButtonItem()
+        backButton.title = L10n.Navigation.Back.message
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         
         setupViews()
         
@@ -201,6 +203,12 @@ class InformationViewController: UIViewController,
             
         }
     }
+    
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//
+//        navigationController?.navigationBar.backItem?.title = ""
+//    }
     
     private func setupViews() {
         userImageView.addSubview(userLoginNameLabel)

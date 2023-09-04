@@ -16,3 +16,7 @@
 "error.notfound.message" = "Usuário \"%@\" não encontrado";
 
 "navigation.back.message" = "Voltar/Swipe Right";
+
+"refresh.text.message" = "Recarregando";
+
+"refresh.error.message" = "Não foi possivel recarregar os dados";
