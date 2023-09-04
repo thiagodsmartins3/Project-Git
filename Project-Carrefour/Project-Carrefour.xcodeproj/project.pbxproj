@@ -180,6 +180,7 @@
 		20288A452AA4DD610025A895 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				208228F52AA168E500E4FA74 /* Assets.xcassets */,
 				20288A462AA4DD610025A895 /* Assets.swift */,
 			);
 			path = Assets;
@@ -212,7 +213,6 @@
 				201B16862AA171D400D97F5C /* Home */,
 				208228EC2AA168E400E4FA74 /* AppDelegate.swift */,
 				208228EE2AA168E400E4FA74 /* SceneDelegate.swift */,
-				208228F52AA168E500E4FA74 /* Assets.xcassets */,
 				208228FA2AA168E500E4FA74 /* Info.plist */,
 			);
 			path = "Project-Carrefour";
