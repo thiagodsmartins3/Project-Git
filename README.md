@@ -12,6 +12,8 @@ _Informaçãoes do projeto_
 * O projéto aplica async await
 * O projeto aplica reatividade com combine
 
+> Projeto desenvolvido no Xcode 14.3.1
+
 _Sobre o projeto_
     O aplicativo consiste em utilizar a api do github para adquirir dados sobre usuários e, com isso, mostra-las no aplicativo. O aplicativo possui as funcionalidades de listagem de usuários, pesquisa, direcionamento para o github pessoal de cada usuário e tela com mais informações.
 > O aplicativo possui as features de recarregamento através de push to refresh, carregamento dinâmico de imagens, swipe para transição de tela e telas de erro, caso alguma requisição não ocorra corretamente ou uma pesquisa não tenha efeito
