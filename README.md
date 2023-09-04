@@ -1,4 +1,3 @@
-# Project-Git - Carrefour
 
 ### Projeto desenvolvido para o teste prático Carrefour
 
@@ -17,6 +16,10 @@ _Informaçãoes do projeto_
 _Sobre o projeto_
     O aplicativo consiste em utilizar a api do github para adquirir dados sobre usuários e, com isso, mostra-las no aplicativo. O aplicativo possui as funcionalidades de listagem de usuários, pesquisa, direcionamento para o github pessoal de cada usuário e tela com mais informações.
 > O aplicativo possui as features de recarregamento através de push to refresh, carregamento dinâmico de imagens, swipe para transição de tela e telas de erro, caso alguma requisição não ocorra corretamente ou uma pesquisa não tenha efeito
+
+#### Run Project
+>Para rodar o projeto, basta abri-lo e executa-lo. 
+Caso uma dependencias não carregue, basta dar um reload nela a selecionando com o botão direito e escolhendo "Update package"
 
 Projeto desenvolvido por:
 Thiago dos Santos Martins
