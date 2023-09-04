@@ -9,6 +9,7 @@ import UIKit.UIViewController
 import Alamofire
 import Combine
 
+// MARK: HOME DISPLAY LOGIC PROTOCOL
 protocol HomeDisplayLogic: AnyObject {
     func displayUsers(viewModel: Home.Users.ViewModel)
     func displayRefreshUsers(viewModel: Home.Users.ViewModel)
@@ -17,8 +18,10 @@ protocol HomeDisplayLogic: AnyObject {
     func displayRefreshErrorMessage(viewModel: Home.ErrorMessage.ViewModel)
 }
 
+// MARK: HOME VIEW CONTROLLER
 class HomeViewController: UIViewController,
                           HomeDisplayLogic {
+    
     var interactor: HomeBusinessLogic?
     var router: (NSObjectProtocol & HomeRoutingLogic & HomeDataPassing)?
     
@@ -40,7 +43,10 @@ class HomeViewController: UIViewController,
 
     lazy var informationTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UsersTableViewCell.self, forCellReuseIdentifier: UsersTableViewCell.identifier)
+        tableView.register(
+            UsersTableViewCell.self,
+            forCellReuseIdentifier: UsersTableViewCell.identifier
+        )
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
@@ -67,20 +73,29 @@ class HomeViewController: UIViewController,
     }()
     
     lazy var emptyImageView: UIImageView = {
-        let imageView = UIImageView(image: Asset.Images.githubImage.image)
+        let imageView = UIImageView(
+            image: Asset.Images.githubImage.image
+        )
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private lazy var pushToRefresh: UIRefreshControl = {
+    lazy var pushToRefresh: UIRefreshControl = {
         let refresh = UIRefreshControl()
-        refresh.attributedTitle = NSAttributedString(string: L10n.Refresh.Text.message, attributes: [
+        refresh.attributedTitle = NSAttributedString(
+            string: L10n.Refresh.Text.message,
+            attributes: [
             NSAttributedString.Key.foregroundColor : Asset.royal.color
         ])
         refresh.tintColor = Asset.royal.color
-        refresh.addTarget(self, action: #selector(didPushToRefresh(_:)), for: UIControl.Event.valueChanged)
+        refresh.addTarget(
+            self,
+            action: #selector(didPushToRefresh(_:)),
+            for: UIControl.Event.valueChanged
+        )
+        
         return refresh
     }()
     
@@ -136,110 +151,6 @@ class HomeViewController: UIViewController,
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    
-    }
-    
-    func setupViews() {
-        view.backgroundColor = Asset.smokeGray.color
-        
-        emptyMessageView.addSubview(emptyImageView)
-        emptyMessageView.addSubview(emptyMessageLabel)
-        
-        informationTableView.addSubview(emptyMessageView)
-        informationTableView.addSubview(pushToRefresh)
-        
-        view.addSubview(loaderActivityView)
-        view.addSubview(searchBarView)
-        view.addSubview(informationTableView)
-        view.bringSubviewToFront(loaderActivityView)
-        
-        setupConstraints()
-    }
-    
-    func setupConstraints() {
-        NSLayoutConstraint.activate([
-            loaderActivityView.topAnchor.constraint(equalTo: view.topAnchor),
-            loaderActivityView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            loaderActivityView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            loaderActivityView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
-            searchBarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-            searchBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            searchBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            
-            informationTableView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 30),
-            informationTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            informationTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            informationTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-        ])
-        
-        NSLayoutConstraint.activate([
-            emptyMessageView.topAnchor.constraint(equalTo: informationTableView.topAnchor),
-            emptyMessageView.leadingAnchor.constraint(equalTo: informationTableView.leadingAnchor),
-            emptyMessageView.bottomAnchor.constraint(equalTo: informationTableView.bottomAnchor),
-            emptyMessageView.trailingAnchor.constraint(equalTo: informationTableView.trailingAnchor),
-            emptyMessageView.widthAnchor.constraint(equalTo: informationTableView.widthAnchor),
-            emptyMessageView.heightAnchor.constraint(equalTo: informationTableView.heightAnchor),
-            
-            emptyImageView.centerXAnchor.constraint(equalTo: emptyMessageView.centerXAnchor),
-            emptyImageView.topAnchor.constraint(equalTo: emptyMessageView.topAnchor, constant: 100),
-            emptyImageView.heightAnchor.constraint(equalToConstant: 120),
-            emptyImageView.widthAnchor.constraint(equalToConstant: 120),
-            
-            emptyMessageLabel.centerXAnchor.constraint(equalTo: emptyMessageView.centerXAnchor),
-            emptyMessageLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 10),
-            emptyMessageLabel.widthAnchor.constraint(equalToConstant: 150),
-            emptyMessageLabel.bottomAnchor.constraint(lessThanOrEqualTo: emptyMessageView.bottomAnchor, constant: -200)
-        ])
-    }
-    
-    func displayUsers(viewModel: Home.Users.ViewModel) {
-        usersData = viewModel.usersData
-    }
-    
-    func displayLoading(viewModel: Home.Loading.ViewModel) {
-        if viewModel.isLoading {
-            DispatchQueue.main.async {
-                self.loaderActivityView.startAnimating()
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.loaderActivityView.stopAnimating()
-            }
-        }
-    }
-    
-    func displayErrorMessage(viewModel: Home.ErrorMessage.ViewModel) {
-        DispatchQueue.main.async {
-            self.informationTableView.reloadData()
-            self.emptyMessageView.isHidden = false
-        }
-        
-        router?.displayError(L10n.Error.Request.message)
-    }
-    
-    func displayRefreshUsers(viewModel: Home.Users.ViewModel) {
-        DispatchQueue.main.async {
-            self.pushToRefresh.endRefreshing()
-        }
-        
-        usersData = viewModel.usersData
-    }
-    
-    func displayRefreshErrorMessage(viewModel: Home.ErrorMessage.ViewModel) {
-        DispatchQueue.main.async {
-            self.pushToRefresh.endRefreshing()
-        }
-        
-        router?.displayRefreshError(L10n.Refresh.Error.message)
-    }
-    
     private func userNotFoundMessage() {
         emptyMessageLabel.text = L10n.Error.Notfound.message(userNotFoundText)
     }
@@ -253,17 +164,14 @@ class HomeViewController: UIViewController,
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
-    @objc private func didPushToRefresh(_ sender: UIRefreshControl) {
-        Task {
-            try await interactor?.requesRefreshUsers(request: .init(endpoint: "users"))
-        }
-    }
 }
 
+
+// MARK: TABLE VIEW IMPLEMENTATIONS
 extension HomeViewController: UITableViewDelegate,
                               UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         guard let data = usersData else {
             return 0
         }
@@ -287,8 +195,11 @@ extension HomeViewController: UITableViewDelegate,
         }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UsersTableViewCell.identifier, for: indexPath) as! UsersTableViewCell
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: UsersTableViewCell.identifier,
+            for: indexPath) as! UsersTableViewCell
 
         if isSearchActive {
             AF.download(filteredSearch![indexPath.row].avatarURL)
@@ -339,27 +250,79 @@ extension HomeViewController: UITableViewDelegate,
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
         if isSearchActive {
             router?.navigateToInformation(filteredSearch![indexPath.row].login)
         } else {
             router?.navigateToInformation(usersData![indexPath.row].login)
         }
-        
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath)
     {
         let verticalPadding: CGFloat = 12
 
         let maskLayer = CALayer()
-        maskLayer.cornerRadius = 10    //if you want round edges
+        maskLayer.cornerRadius = 10
         maskLayer.backgroundColor = UIColor.black.cgColor
-        maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
+        maskLayer.frame = CGRect(x: cell.bounds.origin.x,
+                                 y: cell.bounds.origin.y,
+                                 width: cell.bounds.width,
+                                 height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
         cell.layer.mask = maskLayer
     }
 }
 
+
+// MARK: HOME DISPLAY LOGIC IMPLEMENTATIONS
+extension HomeViewController {
+    func displayUsers(viewModel: Home.Users.ViewModel) {
+        usersData = viewModel.usersData
+    }
+    
+    func displayLoading(viewModel: Home.Loading.ViewModel) {
+        if viewModel.isLoading {
+            DispatchQueue.main.async {
+                self.loaderActivityView.startAnimating()
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.loaderActivityView.stopAnimating()
+            }
+        }
+    }
+    
+    func displayErrorMessage(viewModel: Home.ErrorMessage.ViewModel) {
+        DispatchQueue.main.async {
+            self.informationTableView.reloadData()
+            self.emptyMessageView.isHidden = false
+        }
+        
+        router?.displayError(L10n.Error.Request.message)
+    }
+    
+    func displayRefreshUsers(viewModel: Home.Users.ViewModel) {
+        DispatchQueue.main.async {
+            self.pushToRefresh.endRefreshing()
+        }
+        
+        usersData = viewModel.usersData
+    }
+    
+    func displayRefreshErrorMessage(viewModel: Home.ErrorMessage.ViewModel) {
+        DispatchQueue.main.async {
+            self.pushToRefresh.endRefreshing()
+        }
+        
+        router?.displayRefreshError(L10n.Refresh.Error.message)
+    }
+}
+
+
+// MARK: UISEARCH IMPLEMENTATIONS
 extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let data = usersData else {
@@ -377,6 +340,16 @@ extension HomeViewController: UISearchBarDelegate {
             isSearchActive = true
             userNotFoundText = searchText
             informationTableView.reloadData()
+        }
+    }
+}
+
+
+// MARK: PULL TO REFRESH EVENT
+extension HomeViewController {
+    @objc private func didPushToRefresh(_ sender: UIRefreshControl) {
+        Task {
+            try await interactor?.requesRefreshUsers(request: .init(endpoint: "users"))
         }
     }
 }

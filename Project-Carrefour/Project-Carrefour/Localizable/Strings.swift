@@ -25,6 +25,10 @@ internal enum L10n {
       /// Ops, there was a problem with the service ;(
       internal static let message = L10n.tr("Localizable", "error.request.message", fallback: "Ops, there was a problem with the service ;(")
     }
+    internal enum Title {
+      /// An error has occurred
+      internal static let messqge = L10n.tr("Localizable", "error.title.messqge", fallback: "An error has occurred")
+    }
   }
   internal enum Information {
     internal enum Text {
@@ -44,6 +48,8 @@ internal enum L10n {
     internal enum Error {
       /// Unable to reload data
       internal static let message = L10n.tr("Localizable", "refresh.error.message", fallback: "Unable to reload data")
+      /// Refreshing problem
+      internal static let title = L10n.tr("Localizable", "refresh.error.title", fallback: "Refreshing problem")
     }
     internal enum Text {
       /// Refreshing

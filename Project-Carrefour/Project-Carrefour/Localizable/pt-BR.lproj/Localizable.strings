@@ -12,11 +12,11 @@
 
 "error.request.message" = "Ops, ocorreu um problema com o serviço ;(";
 "error.empty.message" = "Sem usuários para visualizar";
-
 "error.notfound.message" = "Usuário \"%@\" não encontrado";
+"error.title.messqge" = "Ocorreu um erro";
 
 "navigation.back.message" = "Voltar/Swipe Right";
 
 "refresh.text.message" = "Recarregando";
-
 "refresh.error.message" = "Não foi possivel recarregar os dados";
+"refresh.error.title" = "Problema de recarregamento";

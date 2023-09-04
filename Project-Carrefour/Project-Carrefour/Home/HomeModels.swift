@@ -9,8 +9,8 @@ import UIKit
 import Combine
 
 enum Home {
-    // MARK: Use cases
     
+    // MARK: Use cases
     enum Users {
         struct Request {
             let endpoint: String

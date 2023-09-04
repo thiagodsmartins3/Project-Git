@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 
+// MARK: INFORMATION DISPLAY LOGIC PROTOCOL
 protocol InformationDisplayLogic: AnyObject {
     func displayUserInformation(viewModel: Information.User.ViewModel)
     func displayQuote(viewModel: Information.Quote.ViewModel)
@@ -15,6 +16,8 @@ protocol InformationDisplayLogic: AnyObject {
     func displayErrorMessage(viewModel: Information.ErrorMessage.ViewModel)
 }
 
+
+// MARK: INFORMATION VIEW CONTROLLER
 class InformationViewController: UIViewController,
                                  InformationDisplayLogic {
 
@@ -43,19 +46,19 @@ class InformationViewController: UIViewController,
         return loader
     }()
     
-    lazy private var informationScrollView: UIScrollView = {
+    lazy var informationScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
-    lazy private var informationView: UIView = {
+    lazy var informationView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy private var userImageView: UIImageView = {
+    lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .blue
@@ -66,7 +69,7 @@ class InformationViewController: UIViewController,
         return imageView
     }()
     
-    lazy private var userLoginNameLabel: UILabel = {
+    lazy var userLoginNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 30.0)
@@ -75,7 +78,7 @@ class InformationViewController: UIViewController,
         return label
     }()
     
-    lazy private var userLocationLabel: UILabel = {
+    lazy var userLocationLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 10.0)
@@ -85,7 +88,7 @@ class InformationViewController: UIViewController,
 
     }()
     
-    lazy private var userInformationView: UIView = {
+    lazy var userInformationView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
@@ -93,7 +96,7 @@ class InformationViewController: UIViewController,
         return view
     }()
         
-    lazy private var userGreetingsLabel: UILabel = {
+    lazy var userGreetingsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.numberOfLines = 3
@@ -103,7 +106,7 @@ class InformationViewController: UIViewController,
         return label
     }()
 
-    lazy private var userMessageLabel: UILabel = {
+    lazy var userMessageLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.numberOfLines = 0
@@ -114,7 +117,7 @@ class InformationViewController: UIViewController,
         return label
     }()
     
-    lazy private var userBioLabel: UILabel = {
+    lazy var userBioLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.numberOfLines = 0
@@ -140,7 +143,6 @@ class InformationViewController: UIViewController,
         let swipeGesture = UISwipeGestureRecognizer(target: self,
                                                     action: #selector(didSwipeBack(_:)))
         swipeGesture.direction = .right
-        
         return swipeGesture
     }()
     
@@ -203,105 +205,17 @@ class InformationViewController: UIViewController,
             
         }
     }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//
-//        navigationController?.navigationBar.backItem?.title = ""
-//    }
-    
-    private func setupViews() {
-        userImageView.addSubview(userLoginNameLabel)
-        userImageView.addSubview(userLocationLabel)
-        userImageView.addSubview(imageProgressView)
-    
-        userInformationView.layer.addSublayer(gradient)
-        userInformationView.addSubview(userGreetingsLabel)
-        userInformationView.addSubview(userMessageLabel)
-        userInformationView.addSubview(userBioLabel)
-        
-        informationView.addSubview(userImageView)
-        informationView.addSubview(userInformationView)
-        
-        informationScrollView.addSubview(informationView)
-        
-        view.addSubview(informationScrollView)
-        view.addSubview(loaderActivityView)
-        view.bringSubviewToFront(loaderActivityView)
-        
-        view.addGestureRecognizer(swipeGestureRecognizer)
-        
-        setupConstraints()
-    }
-    
+            
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         gradient.frame = userInformationView.bounds
     }
-    
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            loaderActivityView.topAnchor.constraint(equalTo: view.topAnchor),
-            loaderActivityView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            loaderActivityView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            loaderActivityView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
-            informationScrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            informationScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            informationScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            informationScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            informationView.topAnchor.constraint(equalTo: informationScrollView.topAnchor),
-            informationView.leadingAnchor.constraint(equalTo: informationScrollView.leadingAnchor),
-            informationView.bottomAnchor.constraint(equalTo: informationScrollView.bottomAnchor),
-            informationView.trailingAnchor.constraint(equalTo: informationScrollView.trailingAnchor),
-            informationView.widthAnchor.constraint(equalTo: informationScrollView.widthAnchor),
-            informationView.heightAnchor.constraint(equalTo: informationScrollView.heightAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            userImageView.topAnchor.constraint(equalTo: informationView.topAnchor, constant: 20),
-            userImageView.centerXAnchor.constraint(equalTo: informationView.centerXAnchor),
-            userImageView.widthAnchor.constraint(equalTo: informationView.widthAnchor, multiplier: 0.70),
-            userImageView.heightAnchor.constraint(equalTo: informationView.heightAnchor, multiplier: 0.40),
-            
-            userLoginNameLabel.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: 20),
-            userLoginNameLabel.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: -20),
-            userLoginNameLabel.bottomAnchor.constraint(equalTo: userLocationLabel.topAnchor, constant: -10),
-            
-            userLocationLabel.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: 20),
-            userLocationLabel.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: -20),
-            userLocationLabel.bottomAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: -10),
-                        
-            imageProgressView.centerXAnchor.constraint(equalTo: userImageView.centerXAnchor),
-            imageProgressView.centerYAnchor.constraint(equalTo: userImageView.centerYAnchor),
-            imageProgressView.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: 10),
-            imageProgressView.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: -10)
-        ])
-        
-        NSLayoutConstraint.activate([
-            userInformationView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 20),
-            userInformationView.leadingAnchor.constraint(equalTo: informationView.leadingAnchor, constant: 20),
-            userInformationView.trailingAnchor.constraint(equalTo: informationView.trailingAnchor, constant: -20),
-            userInformationView.heightAnchor.constraint(equalToConstant: 300),
-            
-            userGreetingsLabel.topAnchor.constraint(equalTo: userInformationView.topAnchor, constant: 10),
-            userGreetingsLabel.leadingAnchor.constraint(equalTo: userInformationView.leadingAnchor, constant: 10),
-            userGreetingsLabel.trailingAnchor.constraint(equalTo: userInformationView.trailingAnchor, constant: -10),
-            
-            userMessageLabel.topAnchor.constraint(equalTo: userGreetingsLabel.bottomAnchor, constant: 5),
-            userMessageLabel.leadingAnchor.constraint(equalTo: userInformationView.leadingAnchor, constant: 20),
-            userMessageLabel.trailingAnchor.constraint(equalTo: userInformationView.trailingAnchor, constant: -20),
-            
-            userBioLabel.topAnchor.constraint(equalTo: userMessageLabel.bottomAnchor, constant: 20),
-            userBioLabel.leadingAnchor.constraint(equalTo: userInformationView.leadingAnchor, constant: 20),
-            userBioLabel.trailingAnchor.constraint(equalTo: userInformationView.trailingAnchor, constant: -29),
-        ])
-    }
-    
+}
+
+
+// MARK: INFORMATION DISPLAY LOGIC IMPLEMENTATIONS
+extension InformationViewController {
     func displayUserInformation(viewModel: Information.User.ViewModel) {
         if let imageUrl = viewModel.userData.avatarURL {
             AF.download(imageUrl)
@@ -362,7 +276,11 @@ class InformationViewController: UIViewController,
     func displayErrorMessage(viewModel: Information.ErrorMessage.ViewModel) {
         router?.displayError(viewModel.message)
     }
-    
+}
+
+
+// MARK: SWIPE TO BACK EVENT
+extension InformationViewController {
     @objc private func didSwipeBack(_ sender: UISwipeGestureRecognizer) {
         router?.navigateBack()
     }

@@ -11,13 +11,12 @@
 "information.text.message" = "Hey!, how about knowing a little more about who I am?";
 
 "error.request.message" = "Ops, there was a problem with the service ;(";
-
 "error.empty.message" = "No users to view";
-
 "error.notfound.message" = "User \"%@\" not found";
+"error.title.messqge" = "An error has occurred";
 
 "navigation.back.message" = "Back/Swipe Right";
 
 "refresh.text.message" = "Refreshing";
-
 "refresh.error.message" = "Unable to reload data";
+"refresh.error.title" = "Refreshing problem";

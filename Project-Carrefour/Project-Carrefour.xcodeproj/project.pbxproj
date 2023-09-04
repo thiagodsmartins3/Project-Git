@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		200269D32AA2A438004F0E80 /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200269D22AA2A438004F0E80 /* UsersTableViewCell.swift */; };
+		2010890B2AA57A8B0013781A /* InformationViewController+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010890A2AA57A8B0013781A /* InformationViewController+Constraints.swift */; };
+		2010890F2AA57BB50013781A /* InformationViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010890E2AA57BB50013781A /* InformationViewController+Views.swift */; };
+		201089142AA57C5B0013781A /* HomeViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201089132AA57C5B0013781A /* HomeViewController+Views.swift */; };
+		201089162AA57C6C0013781A /* HomeViewController+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201089152AA57C6C0013781A /* HomeViewController+Constraints.swift */; };
 		201B168D2AA171E500D97F5C /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201B16872AA171E500D97F5C /* HomePresenter.swift */; };
 		201B168E2AA171E500D97F5C /* HomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201B16882AA171E500D97F5C /* HomeWorker.swift */; };
 		201B168F2AA171E500D97F5C /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201B16892AA171E500D97F5C /* HomeRouter.swift */; };
@@ -37,6 +41,10 @@
 
 /* Begin PBXFileReference section */
 		200269D22AA2A438004F0E80 /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
+		2010890A2AA57A8B0013781A /* InformationViewController+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InformationViewController+Constraints.swift"; sourceTree = "<group>"; };
+		2010890E2AA57BB50013781A /* InformationViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InformationViewController+Views.swift"; sourceTree = "<group>"; };
+		201089132AA57C5B0013781A /* HomeViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Views.swift"; sourceTree = "<group>"; };
+		201089152AA57C6C0013781A /* HomeViewController+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Constraints.swift"; sourceTree = "<group>"; };
 		201B16872AA171E500D97F5C /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		201B16882AA171E500D97F5C /* HomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorker.swift; sourceTree = "<group>"; };
 		201B16892AA171E500D97F5C /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
@@ -86,9 +94,60 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		201089092AA57A740013781A /* Constraints */ = {
+			isa = PBXGroup;
+			children = (
+				2010890A2AA57A8B0013781A /* InformationViewController+Constraints.swift */,
+			);
+			path = Constraints;
+			sourceTree = "<group>";
+		};
+		2010890C2AA57B700013781A /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				2010890D2AA57B8E0013781A /* Views */,
+				201089092AA57A740013781A /* Constraints */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
+		2010890D2AA57B8E0013781A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2010890E2AA57BB50013781A /* InformationViewController+Views.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		201089102AA57C390013781A /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				201089122AA57C460013781A /* Constraints */,
+				201089112AA57C400013781A /* Views */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
+		201089112AA57C400013781A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				201089132AA57C5B0013781A /* HomeViewController+Views.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		201089122AA57C460013781A /* Constraints */ = {
+			isa = PBXGroup;
+			children = (
+				201089152AA57C6C0013781A /* HomeViewController+Constraints.swift */,
+			);
+			path = Constraints;
+			sourceTree = "<group>";
+		};
 		201B16862AA171D400D97F5C /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				201089102AA57C390013781A /* Setup */,
 				200269D12AA2A41F004F0E80 /* Cell */,
 				201B16872AA171E500D97F5C /* HomePresenter.swift */,
 				201B16882AA171E500D97F5C /* HomeWorker.swift */,
@@ -171,6 +230,7 @@
 		20CF818C2AA1B4F900FCF171 /* Information */ = {
 			isa = PBXGroup;
 			children = (
+				2010890C2AA57B700013781A /* Setup */,
 				20CF818D2AA1B52200FCF171 /* InformationPresenter.swift */,
 				20CF818E2AA1B52200FCF171 /* InformationWorker.swift */,
 				20CF818F2AA1B52200FCF171 /* InformationRouter.swift */,
@@ -262,11 +322,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2010890B2AA57A8B0013781A /* InformationViewController+Constraints.swift in Sources */,
 				20CF81952AA1B52200FCF171 /* InformationRouter.swift in Sources */,
 				201B16922AA171E500D97F5C /* HomeInteractor.swift in Sources */,
 				201B16902AA171E500D97F5C /* HomeModels.swift in Sources */,
 				201B168E2AA171E500D97F5C /* HomeWorker.swift in Sources */,
 				208228ED2AA168E400E4FA74 /* AppDelegate.swift in Sources */,
+				201089162AA57C6C0013781A /* HomeViewController+Constraints.swift in Sources */,
 				201B16912AA171E500D97F5C /* HomeViewController.swift in Sources */,
 				20CF81932AA1B52200FCF171 /* InformationPresenter.swift in Sources */,
 				20288A3E2AA4DBEE0025A895 /* QuotesModel.swift in Sources */,
@@ -278,6 +340,8 @@
 				20CF81962AA1B52200FCF171 /* InformationModels.swift in Sources */,
 				201B168F2AA171E500D97F5C /* HomeRouter.swift in Sources */,
 				208229062AA16A0100E4FA74 /* UsersModel.swift in Sources */,
+				2010890F2AA57BB50013781A /* InformationViewController+Views.swift in Sources */,
+				201089142AA57C5B0013781A /* HomeViewController+Views.swift in Sources */,
 				200269D32AA2A438004F0E80 /* UsersTableViewCell.swift in Sources */,
 				20CF81852AA19D8800FCF171 /* Strings.swift in Sources */,
 				20CF81942AA1B52200FCF171 /* InformationWorker.swift in Sources */,

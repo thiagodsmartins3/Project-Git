@@ -43,9 +43,9 @@ class HomeRouter: NSObject,
     
     func displayError(_ message: String) {
         let snack = Snack(alignment: .top,
-                          title: "Ops, correu um erro",
+                          title: L10n.Error.Title.messqge,
                           message: message,
-                          reuseIdentifier: "yml.co",
+                          reuseIdentifier: "error",
                           icon: UIImage(systemName: "exclamationmark.triangle.fill"),
                           duration: 8.0)
         
@@ -55,11 +55,10 @@ class HomeRouter: NSObject,
     }
     
     func displayRefreshError(_ message: String) {
-        let image = UIImage(systemName: "exclamationmark.triangle.fill")
         let snack = Snack(alignment: .bottom,
-                          title: "Problema de recarregamento",
+                          title: L10n.Refresh.Error.title,
                           message: message,
-                          reuseIdentifier: "yml.co",
+                          reuseIdentifier: "refresh",
                           icon: UIImage(systemName: "exclamationmark.triangle.fill"),
                           duration: 8.0)
         
