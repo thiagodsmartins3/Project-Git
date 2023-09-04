@@ -21,7 +21,7 @@ Thiago dos Santos Martins
 
 <img src="https://developer.apple.com/swift/images/swift-og.png" alt="MarineGEO circle logo" style="height: 100px; width:200px;"/>
 
-<img src="https://softteco.com/media/June2022/xcode-big1.png" alt="MarineGEO circle logo" style="height: 100px; width:200px;"/>
+<img src="https://miro.medium.com/v2/resize:fit:1200/1*NY5kJGSvQ4HkombYcl9vKg.jpeg" alt="MarineGEO circle logo" style="height: 100px; width:200px;"/>
 
 <img src="https://developer.apple.com/news/images/og/ios-17-og.jpg" alt="MarineGEO circle logo" style="height: 100px; width:200px;"/>
 
